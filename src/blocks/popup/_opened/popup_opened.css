@@ -15,7 +15,7 @@
 }
 
 @media screen and (max-width: 500px) {
-  .popup {
+  .popup_opened {
     width: 100%;
   }
 }
