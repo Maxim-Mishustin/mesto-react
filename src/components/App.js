@@ -82,7 +82,7 @@ function App() {
               type="text"
               name="name"
               placeholder="Название"
-              required
+              required 
               minLength="2"
               maxLength="30"
             />
