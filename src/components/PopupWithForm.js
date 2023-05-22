@@ -1,6 +1,6 @@
 import React from "react";
 
-// ОБЩИЙ ПОПАП
+// КОМПОНЕНТ ПОПАПА СОДЕРЖАЩИЙ ОБЩУЮ РАЗМЕТКУ И МЕТОДЫ ДРУГИХ ПОПАПОВ
 function PopupWithForm({ title, name, isOpen, onClose, buttonText, children }) {
   return (
     <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>

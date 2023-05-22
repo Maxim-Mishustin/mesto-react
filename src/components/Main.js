@@ -10,6 +10,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [userAvatar, setUserAvatar] = useState("");
   const [cards, getCards] = useState([]);
 
+  // ХУК useEffect
   useEffect(() => {
     // МЕТОД ЗАГРУЗКИ ИНОФРМАЦИИ О ЮЗЕРЕ С СЕРВЕРА
     api

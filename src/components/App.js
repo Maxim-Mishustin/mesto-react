@@ -31,6 +31,7 @@ function App() {
           onEditAvatar={setIsEditAvatarPopupOpen}
           onCardClick={setSelectedCard}
         />
+        <Footer />
         <PopupWithForm
           // ПОПАП РЕДАКТИРОВАНИЯ ПРОФИЛЯ: EDIT
           name="popupTypeEdit"
@@ -99,8 +100,6 @@ function App() {
             <span class="link-error error" />
           </label>
         </PopupWithForm>
-        <Footer />
-
         <PopupWithForm
           // ПОПАП РЕДАКТИРОВАНИЯ АВАТАРКИ (РЕДАКТИРОВАНИЕ ФОТО АВАТАРА)
           name="popupTypeEditAvatar"
