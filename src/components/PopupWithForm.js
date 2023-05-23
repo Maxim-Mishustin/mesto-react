@@ -10,11 +10,10 @@ function PopupWithForm({ title, name, isOpen, onClose, buttonText, children }) {
           aria-label="close"
           className="popup__button-close"
           type="button"
-        ></button>
+        />
         <form className="popup__form" name={name}>
           <h2 className="popup__title">{title}</h2>
           {children}
-
           <button
             className="popup__button popup__button-submit popup__button_type_disabled"
             type="submit"
