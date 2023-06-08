@@ -1,10 +1,11 @@
 import React from "react";
 
 // ПОПАП ДЛЯ БОЛЬШОЙ КАРТОЧКИ Big Card
-function ImagePopup({ card, onClose }) {
+function ImagePopup({ card, onClose, onCloseOverlay }) {
   return (
     <div
       className={`popup popup_type_big-card ${card.link ? "popup_opened" : ""}`}
+      onClick={onCloseOverlay}
     >
       <figure className="popup__container-big-card">
         <img className="popup__card-image" src={card.link} alt={card.name} />

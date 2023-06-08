@@ -44,7 +44,7 @@ class Api {
     return this._handleTransferReq(response);
   }
 
-  // МКТОД ДОБАВЛЕННИЯ НОВОЙ КАРТОЧКИ С СЕРВЕРА
+  // МЕТОД ДОБАВЛЕННИЯ НОВОЙ КАРТОЧКИ С СЕРВЕРА
   async createCard(data) {
     const response = await fetch(`${this._baseUrl}/cards`, {
       method: "POST",
@@ -54,7 +54,7 @@ class Api {
     return this._handleTransferReq(response);
   }
 
-  // МЕТД РАЛИЗАЦИИ ЛАЙКА КАРТОЧКИ
+  // МЕТОД РАЛИЗАЦИИ ЛАЙКА КАРТОЧКИ
   async putLike(cardId) {
     const response = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",

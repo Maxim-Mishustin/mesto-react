@@ -1,48 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import profileEditPen from "../images/edit-pen.svg";
-import api from "../utils/Api";
 import Card from "./Card";
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js"; 
 
 // ОСНОВНОЙ КОМПОНЕНТ
-function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
-  const [cards, getCards] = useState([]);
-
-  // ХУК useEffect
-  useEffect(() => {
-    // МЕТОД ЗАГРУЗКИ ИНОФРМАЦИИ О ЮЗЕРЕ С СЕРВЕРА
-    api
-      .getUserInfo()
-      .then((profileUserInfo) => {
-        setUserName(profileUserInfo.name);
-        setUserDescription(profileUserInfo.about);
-        setUserAvatar(profileUserInfo.avatar);
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`));
-
-    // ЗАГРУЖАЕМ КАРТОЧКИ С СЕРВЕРА
-    api
-      .getCards()
-      .then((cardsData) => {
-        getCards(
-          cardsData.map((data) => ({
-            likes: data.likes,
-            name: data.name,
-            link: data.link,
-            cardId: data._id,
-          }))
-        );
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  }, []);
+function Main({
+  cards,
+  onEditProfile,
+  onAddPlace,
+  onEditAvatar,
+  onCardClick,
+  onCardLike,
+  onDeletedCard,
+  onConfirmationPopup,
+}) {
+  const currentUser = React.useContext(CurrentUserContext); // ПОДПИСАЛИСЬ НА КОНТЕКСТ С ПОМОЩЬЮ ХУКА React.useContext
 
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__wrapper">
-          <img className="profile__avatar" src={userAvatar} alt="Аватар" />
+          <img
+            className="profile__avatar"
+            src={currentUser.avatar}
+            alt="Аватар"
+          />
           {/* КНОПКА РЕДАКТИРОВАТЬ АВАТАР */}
           <button
             className="profile__edit-button-avatar"
@@ -60,7 +42,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
         </div>
         <div className="profile__info">
           <div className="profile__title-edit">
-            <h1 className="profile__title">{userName}</h1>
+            <h1 className="profile__title">{currentUser.name}</h1>
             {/* КНОПКА РЕДАКТИРОВАТЬ ПРОФИЛЬ */}
             <button
               type="button"
@@ -71,7 +53,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
               }}
             />
           </div>
-          <p className="profile__text">{userDescription}</p>
+          <p className="profile__text">{currentUser.about}</p>
         </div>
         {/* КНОПКА НОВОЕ МЕСТО */}
         <button
@@ -86,11 +68,12 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
       <section className="elements">
         {cards.map((card) => (
           <Card
-            key={card.cardId}
-            likes={card.likes}
-            name={card.name}
-            link={card.link}
+            card={card}
+            key={card._id}
+            onCardDelete={onDeletedCard}
             onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            onConfirmationPopup={onConfirmationPopup}
           />
         ))}
       </section>
