@@ -1,24 +1,19 @@
-import React from "react";
-import profileEditPen from "../images/edit-pen.svg";
-import Card from "./Card";
-import { CurrentUserContext } from "../contexts/CurrentUserContext.js"; 
+import React from "react"
+import profileEditPen from "../images/edit-pen.svg"
+import Card from "./Card"
+import { CurrentUserContext } from "../contexts/CurrentUserContext.js"
+import Loader from "./Loader"
 
 // ОСНОВНОЙ КОМПОНЕНТ
-function Main({
-  cards,
-  onEditProfile,
-  onAddPlace,
-  onEditAvatar,
-  onCardClick,
-  onCardLike,
-  onDeletedCard,
-  onConfirmationPopup,
-}) {
-  const currentUser = React.useContext(CurrentUserContext); // ПОДПИСАЛИСЬ НА КОНТЕКСТ С ПОМОЩЬЮ ХУКА React.useContext
+function Main(props) {
+  const currentUser = React.useContext(CurrentUserContext) // ПОДПИСАЛИСЬ НА КОНТЕКСТ С ПОМОЩЬЮ ХУКА React.useContext
 
   return (
     <main className="content">
-      <section className="profile">
+      {props.isLoading && <Loader />}
+      <section
+        className={`profile ${props.isLoading && "page__profile_hidden"}`}
+      >
         <div className="profile__wrapper">
           <img
             className="profile__avatar"
@@ -30,7 +25,7 @@ function Main({
             className="profile__edit-button-avatar"
             type="button"
             onClick={() => {
-              onEditAvatar(true);
+              props.onEditAvatar(true)
             }}
           >
             <img
@@ -49,7 +44,7 @@ function Main({
               name="edit-button"
               className="profile__edit-button"
               onClick={() => {
-                onEditProfile(true);
+                props.onEditProfile(true)
               }}
             />
           </div>
@@ -61,24 +56,24 @@ function Main({
           name="add-button"
           className="profile__add-button"
           onClick={() => {
-            onAddPlace(true);
+            props.onAddPlace(true)
           }}
         />
       </section>
       <section className="elements">
-        {cards.map((card) => (
+        {props.cards.map((card) => (
           <Card
             card={card}
             key={card._id}
-            onCardDelete={onDeletedCard}
-            onCardClick={onCardClick}
-            onCardLike={onCardLike}
-            onConfirmationPopup={onConfirmationPopup}
+            onCardDelete={props.onDeletedCard}
+            onCardClick={props.onCardClick}
+            onCardLike={props.onCardLike}
+            onConfirmationPopup={props.onConfirmationPopup}
           />
         ))}
       </section>
     </main>
-  );
+  )
 }
 
-export default Main;
+export default Main
